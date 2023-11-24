@@ -75,11 +75,6 @@ jobs:
         run: |
           cd android
           ./gradlew build
-      - name: Build Android JS Bundle
-        run: |
-          npm run package-android
-      - name: Delete Android build duplicate assets resource
-        run: npm run delete-pics
       - name: Install bundler
         run: |
           cd android
@@ -88,7 +83,3 @@ jobs:
         run: |
           cd android
           bundle install
-      - name: Run fastlane
-        run: |
-          cd android
-          bundle exec fastlane build_qa
