@@ -20,7 +20,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Install npm dependency
-        run: yarn install
+        run: npm install
       - name: Cache cocoapods
         uses: actions/cache@v3
         with:
@@ -34,7 +34,7 @@ jobs:
           bundle exec pod install
       - name: Build iOS JS Bundle
         run: |
-          yarn run package-ios
+          npm run package-ios
       - name: Install bundler
         run: |
           cd ios
@@ -58,7 +58,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Install npm dependency
-        run: yarn install
+        run: npm install
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
       - uses: actions/cache@v3
@@ -77,9 +77,9 @@ jobs:
           ./gradlew build
       - name: Build Android JS Bundle
         run: |
-          yarn run package-android
+          npm run package-android
       - name: Delete Android build duplicate assets resource
-        run: yarn run delete-pics
+        run: npm run delete-pics
       - name: Install bundler
         run: |
           cd android
