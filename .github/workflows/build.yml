@@ -1,0 +1,73 @@
+name: build
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, unlocked]
+    branches:
+      - main
+      - development
+
+permissions: read-all
+
+jobs:
+  ios-build:
+    name: 'iOS Build'
+    runs-on: self-hosted
+    steps:
+      - name: Show self-hosted machine infomation
+        run: uname -a
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.9.1
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Install npm dependency
+        run: npm install
+      - name: Cache cocoapods
+        uses: actions/cache@v3
+        with:
+          path: /ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+      - name: Clear Bundler cache
+        run: |
+          bundle config --local cache_path vendor/cache
+          bundle install --jobs 4 --retry 3
+      - name: Install pod dependency
+        run: |
+          cd ios
+          bundle exec pod install
+      - name: Build iOS
+        run: |
+          npx react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle --assets-dest ios
+
+  android-build:
+    name: 'Android Build'
+    runs-on: self-hosted
+    steps:
+      - name: Show self-hosted machine infomation
+        run: uname -a
+      - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.9.1
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Install npm dependency
+        run: npm install
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+      # - uses: actions/cache@v3
+      #   with:
+      #     path: |
+      #       ~/.gradle/caches
+      #       ~/.gradle/wrapper
+      #     key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-gradle-
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Clear Watchman Watches
+        run: |
+          watchman watch-del '/Users/pity/actions-runner/_work/nubi-app-challenge/nubi-app-challenge'
+          watchman watch-project '/Users/pity/actions-runner/_work/nubi-app-challenge/nubi-app-challenge'
+      - name: Build Android
+        run: |
+          npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
