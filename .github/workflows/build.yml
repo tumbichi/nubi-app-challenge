@@ -10,7 +10,7 @@ permissions: read-all
 
 jobs:
   ios-build:
-    name: iOS Dev Build
+    name: 'iOS Build'
     runs-on: self-hosted
     steps:
       - name: Show self-hosted machine infomation
@@ -32,16 +32,12 @@ jobs:
         run: |
           cd ios
           bundle exec pod install
-      - name: Install bundler
+      - name: Build iOS
         run: |
-          cd ios
-          gem install bundler
-      - name: Install gem plugins
-        run: |
-          cd ios
-          bundle install
+          npx react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/main.jsbundle --assets-dest ios
+
   android-build:
-    name: Android Dev Build
+    name: 'Android Build'
     runs-on: self-hosted
     steps:
       - name: Show self-hosted machine infomation
@@ -64,15 +60,10 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
-      - name: Execute Gradle build
+      - name: Build Android
+        run: |
+          npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+      - name: Build Android APK
         run: |
           cd android
-          ./gradlew build
-      - name: Install bundler
-        run: |
-          cd android
-          gem install bundler
-      - name: Install gem plugins
-        run: |
-          cd android
-          bundle install
+          ./gradlew assembleRelease
