@@ -32,9 +32,6 @@ jobs:
         run: |
           cd ios
           bundle exec pod install
-      - name: Build iOS JS Bundle
-        run: |
-          npm run package-ios
       - name: Install bundler
         run: |
           cd ios
@@ -43,10 +40,6 @@ jobs:
         run: |
           cd ios
           bundle install
-      - name: Run fastlane
-        run: |
-          cd ios
-          bundle exec fastlane build_testflight
   android-build:
     name: Android Dev Build
     runs-on: self-hosted
