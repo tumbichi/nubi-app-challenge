@@ -70,5 +70,4 @@ jobs:
       - name: Build Android APK
         run: |
           cd android
-          ./gradlew clean
-          ./gradlew assembleRelease
+          ./gradlew clean && ./gradlew assembleRelease
