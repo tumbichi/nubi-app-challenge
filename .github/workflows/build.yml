@@ -68,6 +68,10 @@ jobs:
         run: |
           watchman watch-del '/Users/pity/actions-runner/_work/nubi-app-challenge/nubi-app-challenge'
           watchman watch-project '/Users/pity/actions-runner/_work/nubi-app-challenge/nubi-app-challenge'      
+      - name: Clear Gradle Cache
+        run: |
+          cd android
+          ./gradlew cleanBuildCache
       - name: Build Android
         run: |
           npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
