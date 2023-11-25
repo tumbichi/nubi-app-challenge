@@ -28,6 +28,10 @@ jobs:
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
+      - name: Clear Bundler cache
+        run: |
+          bundle config --local cache_path vendor/cache
+          bundle install --jobs 4 --retry 3
       - name: Install pod dependency
         run: |
           cd ios
@@ -66,4 +70,5 @@ jobs:
       - name: Build Android APK
         run: |
           cd android
+          ./gradlew clean
           ./gradlew assembleRelease
