@@ -1,20 +1,28 @@
 import {PropsWithChildren, useCallback} from 'react';
 import {MMKV, useMMKVObject, useMMKVString} from 'react-native-mmkv';
-import SessionContext from './SessionContext';
-import {User} from '../../../Auth/data/AuthRepository';
 
-export const storage = new MMKV();
+import {User, UserDetails} from '@/Auth/data/AuthRepository';
+
+import SessionContext from './SessionContext';
+import Config from 'react-native-config';
+
+export const storage = new MMKV({
+  id: 'global-app-storage',
+  encryptionKey: Config.STORAGE_SECRET_KEY || undefined,
+});
 
 const SessionProvider = ({children}: PropsWithChildren) => {
   const [user, setUser] = useMMKVObject<User>('user', storage);
+  const [details, setDetails] = useMMKVObject<UserDetails>('details', storage);
   const [accessToken, setAccessToken] = useMMKVString('accessToken', storage);
 
   const saveSession = useCallback(
-    (userLogged: User, token: string) => {
+    (userLogged: User, userDetails: UserDetails, token?: string) => {
       setUser(userLogged);
-      setAccessToken(token);
+      setDetails(userDetails);
+      token && setAccessToken(token);
     },
-    [setAccessToken, setUser],
+    [setAccessToken, setDetails, setUser],
   );
 
   const updateUser = useCallback(
@@ -24,6 +32,13 @@ const SessionProvider = ({children}: PropsWithChildren) => {
     [setUser],
   );
 
+  const updateDetails = useCallback(
+    (updatedUser: UserDetails) => {
+      setDetails(updatedUser);
+    },
+    [setDetails],
+  );
+
   const logout = useCallback(() => {
     storage.delete('accessToken');
     storage.delete('user');
@@ -31,7 +46,15 @@ const SessionProvider = ({children}: PropsWithChildren) => {
 
   return (
     <SessionContext.Provider
-      value={{accessToken, user, logout, saveSession, updateUser}}>
+      value={{
+        accessToken,
+        user,
+        details,
+        logout,
+        saveSession,
+        updateUser,
+        updateDetails,
+      }}>
       {children}
     </SessionContext.Provider>
   );

@@ -24,6 +24,8 @@ export const resources = {
   en,
 } as const;
 
+export type LanguageResource = typeof resources['es'];
+
 i18n.use(initReactI18next).init({
   resources,
   defaultNS,
