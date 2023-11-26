@@ -10,7 +10,7 @@ import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 const Stack = createNativeStackNavigator();
 
 const RootStack = () => {
-  const {accessToken} = useSession();
+  const {user} = useSession();
   const {styles, theme} = useStyles(stylesheet);
 
   return (
@@ -25,7 +25,7 @@ const RootStack = () => {
           style={styles.mainSafeAreaView}
           edges={['top', 'right', 'left']}>
           <Stack.Navigator initialRouteName="Home Stack">
-            {!accessToken ? (
+            {!user ? (
               <Stack.Screen
                 name="AuthStack"
                 component={AuthStack}

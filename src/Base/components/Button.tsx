@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Pressable,
   PressableProps,
   PressableStateCallbackType,
@@ -11,18 +12,20 @@ import Text from './Text';
 
 interface ButtonProps extends Omit<PressableProps, 'children'> {
   children: TextProps['children'];
+  loading?: boolean;
   variant?: 'solid' | 'outline' | 'unstyled';
   textStyle?: StyleProp<TextStyle>;
 }
 
 const Button = ({
   children,
+  loading,
   variant = 'solid',
   style,
   textStyle,
   ...props
 }: ButtonProps) => {
-  const {styles: buttonStyles} = useStyles(buttonVariants);
+  const {styles: buttonStyles, theme} = useStyles(buttonVariants);
   const {styles: buttonPressedStyles} = useStyles(buttonPressedVariants);
   const {styles: textStyles} = useStyles(textVariants);
 
@@ -34,7 +37,11 @@ const Button = ({
         pressed ? buttonPressedStyles[variant] : {},
       ]}
       {...props}>
-      <Text style={[textStyles[variant], textStyle]}>{children}</Text>
+      {loading ? (
+        <ActivityIndicator color={theme.colors.background} />
+      ) : (
+        <Text style={[textStyles[variant], textStyle]}>{children}</Text>
+      )}
     </Pressable>
   );
 };

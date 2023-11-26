@@ -1,13 +1,21 @@
+import {useCallback} from 'react';
 import {View} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
 import {useTranslation} from 'react-i18next';
+import {Controller, useForm} from 'react-hook-form';
+import {zodResolver} from '@hookform/resolvers/zod';
 
+import {LanguageResource} from '@/Base/i18n';
 import {createStyleSheet, useStyles} from '@/Base/theme';
-import Button from '@/Base/components/Button';
+
+import {Button, InputText, Text} from '@/Base/components';
 
 import Logo from '@/Base/assets/images/nubi-logo.svg';
-import Text from '@/Base/components/Text';
-import InputText from '@/Base/components/InputText';
+import useSession from '@/Base/contexts/SessionContext/useSession';
+
+import loginSchema, {LoginSchema} from '@/Auth/schemas/LoginSchema';
+import {LoginResponse} from '@/Auth/data/AuthRepository';
+import useLoginService from '@/Auth/data/AuthRepository/hooks/useLoginService';
 
 const SemiOvalSvg = () => (
   <Svg width={750} height={48} fill="none">
@@ -23,8 +31,49 @@ const LoginScreen = () => {
   const {t} = useTranslation(['common', 'auth']);
   const {styles} = useStyles(stylesheet);
 
+  const {saveSession} = useSession();
+  const {login} = useLoginService();
+
+  const {
+    control,
+    handleSubmit,
+    formState: {errors, isSubmitting},
+  } = useForm<LoginSchema>({
+    mode: 'onBlur',
+    resolver: zodResolver(loginSchema),
+  });
+
+  const handleLogin = useCallback(
+    (_data: LoginSchema) =>
+      login()
+        .then((user: LoginResponse) => {
+          saveSession(
+            {
+              email: user.email,
+              name: user.name,
+              lastName: user.lastName,
+              password: user.password,
+            },
+            {
+              cardData: user.cardData,
+              movements: user.movements,
+              navigation: user.navigation,
+              services: user.services,
+              summary: user.summary,
+            },
+          );
+        })
+        // TODO: handle error
+        .catch(console.error),
+    [login, saveSession],
+  );
+
   return (
-    <View style={styles.screenContainer}>
+    <View
+      style={[
+        styles.screenContainer,
+        isSubmitting ? styles.pointerEventsNone : undefined,
+      ]}>
       <View style={styles.mainContentContainer}>
         <View style={styles.mainContent}>
           <View style={styles.logoContainer}>
@@ -32,19 +81,58 @@ const LoginScreen = () => {
             <Text style={styles.welcomeText}>{t('welcome')}</Text>
           </View>
           <View style={styles.inputsContainer}>
-            <InputText
-              label={t('auth:login.label.email')}
-              autoComplete="email"
-              autoCapitalize="none"
-              keyboardType="email-address"
-              inputMode="email"
-              returnKeyType="next"
+            <Controller
+              control={control}
+              name="email"
+              render={({field}) => (
+                <InputText
+                  autoCapitalize="none"
+                  autoComplete="email"
+                  errorMessage={
+                    errors.email?.message
+                      ? t(
+                          `auth:login.error.${
+                            errors.email
+                              .message as keyof LanguageResource['auth']['login']['error']
+                          }`,
+                        )
+                      : undefined
+                  }
+                  inputMode="email"
+                  keyboardType="email-address"
+                  label={t('auth:login.label.email')}
+                  returnKeyType="next"
+                  value={field.value}
+                  onBlur={field.onBlur}
+                  onChangeText={field.onChange}
+                  // onSubmitEditing={() => passwordRef.current?.focus()}
+                />
+              )}
             />
-            <InputText
-              secureTextEntry
-              label={t('auth:login.label.password')}
-              autoComplete="password"
-              returnKeyType="go"
+            <Controller
+              control={control}
+              name="password"
+              render={({field}) => (
+                <InputText
+                  secureTextEntry
+                  autoComplete="password"
+                  errorMessage={
+                    errors.password?.message
+                      ? t(
+                          `auth:login.error.${
+                            errors.password
+                              .message as keyof LanguageResource['auth']['login']['error']
+                          }`,
+                        )
+                      : undefined
+                  }
+                  label={t('auth:login.label.password')}
+                  returnKeyType="go"
+                  value={field.value}
+                  onBlur={field.onBlur}
+                  onChangeText={field.onChange}
+                />
+              )}
             />
           </View>
           <Button textStyle={styles.forgotPassword} variant="unstyled">
@@ -54,7 +142,9 @@ const LoginScreen = () => {
         <SemiOvalSvg />
       </View>
       <View style={styles.bottomActionsContainer}>
-        <Button>{t('auth:login.actions.signIn')}</Button>
+        <Button loading={isSubmitting} onPress={handleSubmit(handleLogin)}>
+          {t('auth:login.actions.signIn')}
+        </Button>
         <Button variant="outline">{t('auth:login.actions.signUp')}</Button>
       </View>
     </View>
@@ -100,7 +190,11 @@ const stylesheet = createStyleSheet(theme => ({
   },
   bottomActionsContainer: {
     gap: theme.spacing.md,
-    paddingVertical: theme.spacing.xl,
+    paddingTop: theme.spacing['2xl'],
+    paddingBottom: theme.spacing['3xl'],
     paddingHorizontal: theme.spacing.lg,
+  },
+  pointerEventsNone: {
+    pointerEvents: 'none',
   },
 }));
