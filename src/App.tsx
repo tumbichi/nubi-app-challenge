@@ -1,4 +1,4 @@
-import {StatusBar, useColorScheme} from 'react-native';
+import {useColorScheme} from 'react-native';
 import {
   DarkTheme,
   DefaultTheme,
