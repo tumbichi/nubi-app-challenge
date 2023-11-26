@@ -15,7 +15,11 @@ const RootStack = () => {
 
   return (
     <>
-      <StatusBar backgroundColor={theme.colors.accent} />
+      <StatusBar
+        animated
+        backgroundColor={theme.colors.accent}
+        barStyle={'light-content'}
+      />
       <SafeAreaProvider>
         <SafeAreaView
           style={styles.mainSafeAreaView}
