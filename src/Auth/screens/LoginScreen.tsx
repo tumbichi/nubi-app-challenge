@@ -1,5 +1,6 @@
 import {View} from 'react-native';
 import {Path, Svg} from 'react-native-svg';
+import {useTranslation} from 'react-i18next';
 
 import {createStyleSheet, useStyles} from '@/Base/theme';
 import Button from '@/Base/components/Button';
@@ -19,6 +20,7 @@ const SemiOvalSvg = () => (
 );
 
 const LoginScreen = () => {
+  const {t} = useTranslation(['common', 'auth']);
   const {styles} = useStyles(stylesheet);
 
   return (
@@ -27,11 +29,11 @@ const LoginScreen = () => {
         <View style={styles.mainContent}>
           <View style={styles.logoContainer}>
             <Logo />
-            <Text style={styles.welcomeText}>¡Bienvenido!</Text>
+            <Text style={styles.welcomeText}>{t('welcome')}</Text>
           </View>
           <View style={styles.inputsContainer}>
             <InputText
-              label="Email"
+              label={t('auth:login.label.email')}
               autoComplete="email"
               autoCapitalize="none"
               keyboardType="email-address"
@@ -40,20 +42,20 @@ const LoginScreen = () => {
             />
             <InputText
               secureTextEntry
-              label="Contraseña"
+              label={t('auth:login.label.password')}
               autoComplete="password"
               returnKeyType="go"
             />
           </View>
           <Button textStyle={styles.forgotPassword} variant="unstyled">
-            ¿Olvidaste tu contraseña?
+            {t('auth:login.actions.forgotPassword')}
           </Button>
         </View>
         <SemiOvalSvg />
       </View>
       <View style={styles.bottomActionsContainer}>
-        <Button>Iniciar sesion</Button>
-        <Button variant="outline">Registrate</Button>
+        <Button>{t('auth:login.actions.signIn')}</Button>
+        <Button variant="outline">{t('auth:login.actions.signUp')}</Button>
       </View>
     </View>
   );
