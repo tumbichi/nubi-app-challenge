@@ -25,6 +25,7 @@ const stylesheet = createStyleSheet(theme => ({
     paddingHorizontal: theme.spacing.md,
     paddingVertical: theme.spacing.lg,
     borderRadius: theme.borderRadius.base,
+    color: theme.colors.foreground,
   },
   label: {
     color: '#ffffff',

@@ -1,18 +1,40 @@
-import {Pressable, PressableProps, TextProps} from 'react-native';
+import {
+  Pressable,
+  PressableProps,
+  PressableStateCallbackType,
+  StyleProp,
+  TextProps,
+  TextStyle,
+} from 'react-native';
 import {createStyleSheet, useStyles} from '../theme';
 import Text from './Text';
 
 interface ButtonProps extends Omit<PressableProps, 'children'> {
   children: TextProps['children'];
-  variant?: 'solid' | 'outline';
+  variant?: 'solid' | 'outline' | 'unstyled';
+  textStyle?: StyleProp<TextStyle>;
 }
 
-const Button = ({children, variant = 'solid', ...props}: ButtonProps) => {
+const Button = ({
+  children,
+  variant = 'solid',
+  style,
+  textStyle,
+  ...props
+}: ButtonProps) => {
   const {styles: buttonStyles} = useStyles(buttonVariants);
+  const {styles: buttonPressedStyles} = useStyles(buttonPressedVariants);
   const {styles: textStyles} = useStyles(textVariants);
+
   return (
-    <Pressable style={buttonStyles[variant]} {...props}>
-      <Text style={textStyles[variant]}>{children}</Text>
+    <Pressable
+      style={({pressed}: PressableStateCallbackType) => [
+        buttonStyles[variant],
+        style,
+        pressed ? buttonPressedStyles[variant] : {},
+      ]}
+      {...props}>
+      <Text style={[textStyles[variant], textStyle]}>{children}</Text>
     </Pressable>
   );
 };
@@ -34,6 +56,19 @@ const buttonVariants = createStyleSheet(theme => ({
     paddingVertical: theme.spacing.lg,
     alignItems: 'center',
   },
+  unstyled: {},
+}));
+
+const buttonPressedVariants = createStyleSheet(() => ({
+  solid: {
+    opacity: 0.8,
+  },
+  outline: {
+    opacity: 0.8,
+  },
+  unstyled: {
+    opacity: 0.8,
+  },
 }));
 
 const textVariants = createStyleSheet(theme => ({
@@ -46,5 +81,8 @@ const textVariants = createStyleSheet(theme => ({
     color: theme.colors.accent,
     fontSize: 16,
     fontWeight: '600',
+  },
+  unstyled: {
+    color: theme.colors.foreground,
   },
 }));
