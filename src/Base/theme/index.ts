@@ -1,10 +1,9 @@
-// import library factory
 import {createUnistyles} from 'react-native-unistyles';
-// import your breakpoints, add whatever keys and numeric values you want
-import {borderRadius} from './borderRadius';
-import {breakpoints} from './breakpoints';
-import {spacing} from './spacing';
-// import your app's theme TypeScript type, or simply use 'typeof theme'
+
+import {borderRadius} from './designTokens/borderRadius';
+import {breakpoints} from './designTokens/breakpoints';
+import {fontSizes} from './designTokens/fontSizes';
+import {spacing} from './designTokens/spacing';
 
 const utils = {
   hexToRGBA: (hex: string, opacity: number) => {
@@ -23,6 +22,7 @@ export const lightTheme = {
     foreground: '#1E1E1E',
     accent: '#0251CC',
   },
+  fontSizes,
   spacing,
   utils,
 };
@@ -34,11 +34,12 @@ export const darkTheme = {
     foreground: '#FFFFFF',
     accent: '#0251CC',
   },
+  fontSizes,
   spacing,
   utils,
 };
 
-type AppTheme = typeof lightTheme | typeof darkTheme;
+export type AppTheme = typeof lightTheme | typeof darkTheme;
 
 export const {createStyleSheet, useStyles} = createUnistyles<
   typeof breakpoints,
