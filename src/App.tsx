@@ -9,8 +9,10 @@ import {UnistylesTheme} from 'react-native-unistyles';
 import SessionProvider from '@/Base/contexts/SessionContext/SessionProvider';
 import RootStack from '@/Base/navigation/RootStack';
 
-import {lightTheme, darkTheme, AppTheme} from './Base/theme';
-import useColorModeValue from './Base/theme/hooks/useColorSchemeValue';
+import {lightTheme, darkTheme, AppTheme} from '@/Base/theme';
+import useColorModeValue from '@/Base/theme/hooks/useColorSchemeValue';
+
+import '@/Base/i18n';
 
 function App(): JSX.Element {
   const appTheme = useColorModeValue<AppTheme, AppTheme>(lightTheme, darkTheme);
