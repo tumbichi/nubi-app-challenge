@@ -3,7 +3,6 @@ import {BottomTabHeaderProps} from '@react-navigation/bottom-tabs';
 
 import {
   /* createStyleSheet,  */ lightTheme /* , useStyles */,
-  useStyles,
 } from '@/Base/theme';
 import {HalfOval, Logo, Text} from '.';
 
