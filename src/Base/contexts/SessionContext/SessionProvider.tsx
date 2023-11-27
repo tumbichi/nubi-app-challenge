@@ -18,8 +18,8 @@ const SessionProvider = ({children}: PropsWithChildren) => {
 
   const saveSession = useCallback(
     (userLogged: User, userDetails: UserDetails, token?: string) => {
-      setUser(userLogged);
       setDetails(userDetails);
+      setUser(userLogged);
       token && setAccessToken(token);
     },
     [setAccessToken, setDetails, setUser],

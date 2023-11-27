@@ -1,0 +1,11 @@
+{
+  "cards": {
+    "kind": {
+      "VIRTUAL": "VIRTUAL",
+      "PHYSICAL": "FÍSICA"
+    },
+    "label": {
+      "balance": "Tu saldo"
+    }
+  }
+}
