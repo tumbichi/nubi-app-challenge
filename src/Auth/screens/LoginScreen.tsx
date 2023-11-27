@@ -1,6 +1,5 @@
 import {useCallback} from 'react';
 import {View} from 'react-native';
-import {Path, Svg} from 'react-native-svg';
 import {useTranslation} from 'react-i18next';
 import {Controller, useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
@@ -8,24 +7,13 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {LanguageResource} from '@/Base/i18n';
 import {createStyleSheet, useStyles} from '@/Base/theme';
 
-import {Button, InputText, Text} from '@/Base/components';
+import {Button, HalfOval, InputText, Logo, Text} from '@/Base/components';
 
-import Logo from '@/Base/assets/images/nubi-logo.svg';
 import useSession from '@/Base/contexts/SessionContext/useSession';
 
 import loginSchema, {LoginSchema} from '@/Auth/schemas/LoginSchema';
 import {LoginResponse} from '@/Auth/data/AuthRepository';
 import useLoginService from '@/Auth/data/AuthRepository/hooks/useLoginService';
-
-const SemiOvalSvg = () => (
-  <Svg width={750} height={48} fill="none">
-    <Path
-      fill="#0251CC"
-      d="M750 3.971C750 6.165 582.107 48 375 48S0 6.165 0 3.971C0 1.778 167.893.124 375 .124s375 1.654 375 3.847Z"
-    />
-    <Path fill="#0251CC" d="M0 0h750v3.971H0z" />
-  </Svg>
-);
 
 const LoginScreen = () => {
   const {t} = useTranslation(['common', 'auth']);
@@ -139,7 +127,7 @@ const LoginScreen = () => {
             {t('auth:login.actions.forgotPassword')}
           </Button>
         </View>
-        <SemiOvalSvg />
+        <HalfOval />
       </View>
       <View style={styles.bottomActionsContainer}>
         <Button loading={isSubmitting} onPress={handleSubmit(handleLogin)}>

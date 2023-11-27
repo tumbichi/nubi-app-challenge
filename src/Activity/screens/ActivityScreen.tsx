@@ -1,17 +1,17 @@
+import {View} from 'react-native';
 import Text from '@/Base/components/Text';
 import {createStyleSheet, useStyles} from '@/Base/theme';
-import {View} from 'react-native';
 
-const HomeScreen = () => {
+const ActivityScreen = () => {
   const {styles} = useStyles(stylesheet);
   return (
     <View style={styles.container}>
-      <Text>Home screen</Text>
+      <Text>Activity screen</Text>
     </View>
   );
 };
 
-export default HomeScreen;
+export default ActivityScreen;
 
 const stylesheet = createStyleSheet(theme => ({
   container: {

@@ -5,6 +5,12 @@ import {breakpoints} from './designTokens/breakpoints';
 import {fontSizes} from './designTokens/fontSizes';
 import {spacing} from './designTokens/spacing';
 
+import {
+  DarkTheme,
+  DefaultTheme,
+  Theme as NavigationTheme,
+} from '@react-navigation/native';
+
 const utils = {
   hexToRGBA: (hex: string, opacity: number) => {
     const rgb = hex
@@ -39,6 +45,23 @@ export const darkTheme = {
   fontSizes,
   spacing,
   utils,
+};
+
+export const lightNavigationTheme: NavigationTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#0251CC',
+  },
+};
+
+export const darkNavigationTheme: NavigationTheme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    primary: '#0251CC',
+    background: '#1E1E1E',
+  },
 };
 
 export type AppTheme = typeof lightTheme | typeof darkTheme;
