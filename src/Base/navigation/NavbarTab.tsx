@@ -29,38 +29,6 @@ const NAVIGATION = {
 
 type NavbarTapProps = NativeStackScreenProps<RootStackParamList, 'NavbarTab'>;
 
-const HomeNavbarIcon = ({
-  color,
-}: {
-  focused: boolean;
-  color: string;
-  size: number;
-}) => <HomeIcon fill={color} />;
-
-const CardNavbarIcon = ({
-  color,
-}: {
-  focused: boolean;
-  color: string;
-  size: number;
-}) => <CardIcon color={color} />;
-
-const ActivityNavbarIcon = ({
-  color,
-}: {
-  focused: boolean;
-  color: string;
-  size: number;
-}) => <ActivityIcon color={color} />;
-
-const ProfileNavbarIcon = ({
-  color,
-}: {
-  focused: boolean;
-  color: string;
-  size: number;
-}) => <ProfileIcon fill={color} />;
-
 const NavbarTab = ({
   route: {
     params: {details, user},
@@ -74,10 +42,11 @@ const NavbarTab = ({
         <Tab.Screen
           name="HomeStack"
           component={HomeStack}
+          initialParams={{}}
           options={{
             title: NAVIGATION.home,
             headerTitle: t('hi', {name: user.name}),
-            tabBarIcon: HomeNavbarIcon,
+            tabBarIcon: HomeIcon,
           }}
         />
       )}
@@ -88,7 +57,7 @@ const NavbarTab = ({
           options={{
             title: NAVIGATION.card,
             headerTitle: NAVIGATION.card,
-            tabBarIcon: CardNavbarIcon,
+            tabBarIcon: CardIcon,
           }}
         />
       )}
@@ -99,7 +68,7 @@ const NavbarTab = ({
           options={{
             title: NAVIGATION.activity,
             headerTitle: NAVIGATION.activity,
-            tabBarIcon: ActivityNavbarIcon,
+            tabBarIcon: ActivityIcon,
           }}
         />
       )}
@@ -110,7 +79,7 @@ const NavbarTab = ({
           options={{
             title: NAVIGATION.profile,
             headerTitle: NAVIGATION.profile,
-            tabBarIcon: ProfileNavbarIcon,
+            tabBarIcon: ProfileIcon,
           }}
         />
       )}
