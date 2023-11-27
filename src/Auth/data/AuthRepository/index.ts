@@ -20,7 +20,7 @@ export type LoginResponse = User & UserDetails;
 export interface CardData {
   account_number: string;
   has_active_pin: boolean;
-  kind: string;
+  kind: 'VIRTUAL' | 'PHYSICAL';
   first_name: string;
   last_name: string;
   expiration_date: string;

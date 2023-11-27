@@ -31,14 +31,10 @@ const RootStack = () => {
           style={styles.mainSafeAreaView}
           edges={['top', 'right', 'left']}>
           <Stack.Navigator screenOptions={{headerShown: false}}>
-            {!user ? (
+            {!user || !details ? (
               <Stack.Screen name="AuthStack" component={AuthStack} />
             ) : (
-              <Stack.Screen
-                name="NavbarTab"
-                component={NavbarTab}
-                initialParams={{user, details}}
-              />
+              <Stack.Screen name="NavbarTab" component={NavbarTab} />
             )}
           </Stack.Navigator>
         </SafeAreaView>

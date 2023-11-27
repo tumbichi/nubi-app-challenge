@@ -26,13 +26,13 @@ function NubiApp(): JSX.Element {
   );
 
   return (
-    <UnistylesTheme theme={appTheme}>
-      <SessionProvider>
+    <SessionProvider>
+      <UnistylesTheme theme={appTheme}>
         <NavigationContainer theme={navigationTheme}>
           <RootStack />
         </NavigationContainer>
-      </SessionProvider>
-    </UnistylesTheme>
+      </UnistylesTheme>
+    </SessionProvider>
   );
 }
 

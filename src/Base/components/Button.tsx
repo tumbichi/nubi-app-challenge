@@ -39,8 +39,10 @@ const Button = ({
       {...props}>
       {loading ? (
         <ActivityIndicator color={theme.colors.background} />
-      ) : (
+      ) : typeof children === 'string' ? (
         <Text style={[textStyles[variant], textStyle]}>{children}</Text>
+      ) : (
+        children
       )}
     </Pressable>
   );
