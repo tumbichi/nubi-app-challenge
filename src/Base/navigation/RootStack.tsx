@@ -1,16 +1,22 @@
 import {StatusBar} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import HomeStack from '@/Home/navigation/HomeStack';
 import {createStyleSheet, useStyles} from '../theme';
 import useSession from '../contexts/SessionContext/useSession';
 import AuthStack from '@/Auth/navigation/AuthStack';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import NavbarTab from './NavbarTab';
+import {User, UserDetails} from '@/Auth/data/AuthRepository';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  AuthStack: undefined;
+  NavbarTab: {user: User; details: UserDetails};
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootStack = () => {
-  const {user} = useSession();
+  const {user, details} = useSession();
   const {styles, theme} = useStyles(stylesheet);
 
   return (
@@ -24,15 +30,15 @@ const RootStack = () => {
         <SafeAreaView
           style={styles.mainSafeAreaView}
           edges={['top', 'right', 'left']}>
-          <Stack.Navigator initialRouteName="Home Stack">
+          <Stack.Navigator screenOptions={{headerShown: false}}>
             {!user ? (
-              <Stack.Screen
-                name="AuthStack"
-                component={AuthStack}
-                options={{headerShown: false}}
-              />
+              <Stack.Screen name="AuthStack" component={AuthStack} />
             ) : (
-              <Stack.Screen name="HomeStack" component={HomeStack} />
+              <Stack.Screen
+                name="NavbarTab"
+                component={NavbarTab}
+                initialParams={{user, details}}
+              />
             )}
           </Stack.Navigator>
         </SafeAreaView>

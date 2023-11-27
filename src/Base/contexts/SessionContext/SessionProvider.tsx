@@ -42,6 +42,7 @@ const SessionProvider = ({children}: PropsWithChildren) => {
   const logout = useCallback(() => {
     storage.delete('accessToken');
     storage.delete('user');
+    storage.delete('details');
   }, []);
 
   return (

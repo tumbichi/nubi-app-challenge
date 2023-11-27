@@ -7,8 +7,8 @@ import {LoginResponse} from '..';
 async function login(): Promise<LoginResponse> {
   let errorMessage;
   try {
-    const response = await authClient.get<LoginResponse>('/login');
-    return response.data;
+    const response = await authClient.get<[LoginResponse]>('/login');
+    return response.data[0];
   } catch (error) {
     errorMessage = handleAxiosError(error);
   }
