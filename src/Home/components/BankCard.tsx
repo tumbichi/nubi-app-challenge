@@ -7,6 +7,7 @@ import {EyeIcon, EyeOffIcon, VisaIcon} from '@/Base/assets/icons';
 import formatPrice from '@/Base/utils/formatters/formatPrice';
 
 import {CardData} from '@/Auth/data/AuthRepository';
+import {useTranslation} from 'react-i18next';
 
 interface BankCardProps {
   card: CardData;
@@ -26,6 +27,7 @@ const cardColors = {
 };
 
 const BankCard = ({card}: BankCardProps) => {
+  const {t} = useTranslation('home');
   const [secureBalance, setSecureBalance] = useState(false);
   const {styles} = useStyles(stylesheet);
 
@@ -49,7 +51,7 @@ const BankCard = ({card}: BankCardProps) => {
         ]}
       />
       <View>
-        <Text style={styles.balanceLabel}>Tu saldo</Text>
+        <Text style={styles.balanceLabel}>{t('cards.label.balance')}</Text>
         <View style={styles.balanceValueContainer}>
           <Text style={styles.balanceValue}>
             {secureBalance
@@ -97,7 +99,7 @@ const BankCard = ({card}: BankCardProps) => {
       <View style={styles.cardBrandContainer}>
         <View>
           <VisaIcon height={24} width={72} color="white" />
-          <Text style={styles.cardKind}>{card.kind}</Text>
+          <Text style={styles.cardKind}>{t(`cards.kind.${card.kind}`)}</Text>
         </View>
         <View style={styles.expirationDateContainer}>
           <Text style={styles.expirationDate}>{card.expiration_date}</Text>
