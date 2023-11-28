@@ -1,22 +1,13 @@
+import {useMemo} from 'react';
 import {View} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 import {createStyleSheet, useStyles} from '@/Base/theme';
 import {Text} from '@/Base/components';
-import {useTranslation} from 'react-i18next';
-import {useMemo} from 'react';
-import BusIcon from '@/Base/assets/icons/BusIcon';
-import PhoneIcon from '@/Base/assets/icons/PhoneIcon';
-import InvoiceIcon from '@/Base/assets/icons/InvoiceIcon';
-import ChartIcon from '@/Base/assets/icons/ChartIcon';
-import ServiceItem from './ServiceItem';
-import useColorModeValue from '@/Base/theme/hooks/useColorSchemeValue';
+import {BusIcon, PhoneIcon, InvoiceIcon, ChartIcon} from '@/Base/assets/icons';
 
-const SERVICES = {
-  chargeSube: 'Cargar la SUBE',
-  rechargeCellphoneCredit: 'Recargar un celular',
-  payServices: 'Pagar tus servicios',
-  investMyMoney: 'Invertir mi plata',
-};
+import ServiceItem from './ServiceItem';
+import {SERVICES} from '@/Base/utils/constants/services';
 
 interface AvailableServicesCardProps {
   availableServices: string[];
