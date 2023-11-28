@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import React from 'react';
 import {Summary} from '@/Auth/data/AuthRepository';
 import formatPrice from '@/Base/utils/formatters/formatPrice';
