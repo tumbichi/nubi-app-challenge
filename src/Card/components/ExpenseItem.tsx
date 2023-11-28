@@ -43,7 +43,7 @@ export default ExpenseItem;
 
 const stylesheet = createStyleSheet(theme => ({
   container: {flexDirection: 'row', gap: theme.spacing.xs},
-  title: {fontWeight: '300'},
+  title: {fontWeight: '300', color: theme.colors.foreground},
   dotItem: {
     height: 12,
     width: 12,
