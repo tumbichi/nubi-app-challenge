@@ -8,6 +8,9 @@
       "balance": "Your balance"
     }
   },
+  "movements": {
+    "title": "Movements"
+  },
   "services": {
     "title": "Services"
   }

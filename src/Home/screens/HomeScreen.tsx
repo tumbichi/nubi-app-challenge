@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import useSession from '@/Base/contexts/SessionContext/useSession';
@@ -16,11 +16,11 @@ const HomeScreen = ({}: HomeScreenProps) => {
   const {details} = useSession();
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <BankCardsCarousel cards={details?.cardData ?? []} />
       <AvailableServicesCard availableServices={details?.services ?? []} />
-      <Movements />
-    </View>
+      <Movements movements={details?.movements ?? []} />
+    </ScrollView>
   );
 };
 

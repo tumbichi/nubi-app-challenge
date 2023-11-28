@@ -8,6 +8,9 @@
       "balance": "Tu saldo"
     }
   },
+  "movements": {
+    "title": "Movimientos"
+  },
   "services": {
     "title": "Servicios"
   }
