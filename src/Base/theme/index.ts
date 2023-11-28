@@ -1,5 +1,7 @@
 import {createUnistyles} from 'react-native-unistyles';
 
+import {typography} from './components/typography';
+
 import {borderRadius} from './designTokens/borderRadius';
 import {breakpoints} from './designTokens/breakpoints';
 import {fontSizes} from './designTokens/fontSizes';
@@ -25,11 +27,12 @@ export const lightTheme = {
   borderRadius,
   colors: {
     background: '#FFFFFF',
-    foreground: '#1E1E1E',
+    foreground: '#010101',
     accent: '#0251CC',
     red: '#EF233C',
     gray: '#ADB1B8',
   },
+  components: {typography},
   fontSizes,
   spacing,
   utils,
@@ -38,12 +41,13 @@ export const lightTheme = {
 export const darkTheme = {
   borderRadius,
   colors: {
-    background: '#1E1E1E',
+    background: '#010101',
     foreground: '#FFFFFF',
     accent: '#0251CC',
     red: '#EF233C',
     gray: '#ADB1B8',
   },
+  components: {typography},
   fontSizes,
   spacing,
   utils,

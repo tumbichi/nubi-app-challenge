@@ -15,14 +15,14 @@ import {CardData} from '@/Auth/data/AuthRepository';
 import BankCard from './BankCard';
 import CarouselDot from './CarouselDot';
 
-interface CardCarouselProps {
+interface MyBankCardsCarouselProps {
   cards: CardData[];
 }
 
 const {width} = Dimensions.get('window');
 const CARD_WIDTH = Math.round(width * 0.8);
 
-const CardCarousel = ({cards}: CardCarouselProps) => {
+const BankCardsCarousel = ({cards}: MyBankCardsCarouselProps) => {
   const {styles} = useStyles(stylesheet);
 
   const scrollXOffset = useSharedValue(0);
@@ -85,7 +85,7 @@ const CardCarousel = ({cards}: CardCarouselProps) => {
   );
 };
 
-export default CardCarousel;
+export default BankCardsCarousel;
 
 const stylesheet = createStyleSheet(theme => ({
   container: {
