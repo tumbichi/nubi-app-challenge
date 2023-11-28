@@ -11,8 +11,8 @@ import Animated, {
 import {createStyleSheet, useStyles} from '@/Base/theme';
 
 import {CardData} from '@/Auth/data/AuthRepository';
+import BankCard from '@/Card/components/BankCard';
 
-import BankCard from './BankCard';
 import CarouselDot from './CarouselDot';
 
 interface MyBankCardsCarouselProps {

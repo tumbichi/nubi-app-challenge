@@ -1,5 +1,6 @@
 import {useCallback, useState} from 'react';
 import {View} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 import {createStyleSheet, useStyles} from '@/Base/theme';
 import {Button, Text} from '@/Base/components';
@@ -7,7 +8,6 @@ import {EyeIcon, EyeOffIcon, VisaIcon} from '@/Base/assets/icons';
 import formatPrice from '@/Base/utils/formatters/formatPrice';
 
 import {CardData} from '@/Auth/data/AuthRepository';
-import {useTranslation} from 'react-i18next';
 
 interface BankCardProps {
   card: CardData;
