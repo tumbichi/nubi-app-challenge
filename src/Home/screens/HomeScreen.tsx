@@ -1,4 +1,4 @@
-import {ScrollView, View} from 'react-native';
+import {ScrollView} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import useSession from '@/Base/contexts/SessionContext/useSession';

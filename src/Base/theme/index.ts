@@ -47,7 +47,7 @@ export const darkTheme = {
     accent: '#0251CC',
     red: '#EF233C',
     gray: '#ADB1B8',
-    green: '',
+    green: '#48BB78',
   },
   components: {typography},
   fontSizes,
