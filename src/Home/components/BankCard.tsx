@@ -140,7 +140,6 @@ const stylesheet = createStyleSheet(theme => ({
   },
   balanceLabel: {
     color: 'white',
-    fontSize: theme.fontSizes.lg,
     fontWeight: '300',
   },
   balanceValueContainer: {flexDirection: 'row', alignItems: 'center'},
