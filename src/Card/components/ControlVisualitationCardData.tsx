@@ -1,11 +1,13 @@
-import {Switch, View} from 'react-native';
+import {useState} from 'react';
+import {View} from 'react-native';
 
 import {createStyleSheet, useStyles} from '@/Base/theme';
-import {Text} from '@/Base/components';
+import {Switch, Text} from '@/Base/components';
 import {EyeIcon} from '@/Base/assets/icons';
 
 const ControlVisualitationCardData = () => {
   const {styles, theme} = useStyles(stylesheet);
+  const [value, setValue] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -15,7 +17,7 @@ const ControlVisualitationCardData = () => {
         </View>
         <Text>Ver datos</Text>
       </View>
-      <Switch />
+      <Switch value={value} handleOnPress={v => setValue(v)} />
     </View>
   );
 };
