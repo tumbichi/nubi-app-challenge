@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
@@ -6,10 +5,17 @@ import {createStyleSheet, useStyles} from '@/Base/theme';
 import {Switch, Text} from '@/Base/components';
 import {EyeIcon} from '@/Base/assets/icons';
 
-const ControlVisualitationCardData = () => {
+interface ControlVisualitationCardDataProps {
+  value: boolean;
+  handlePress: (value: boolean) => void;
+}
+
+const ControlVisualitationCardData = ({
+  value,
+  handlePress,
+}: ControlVisualitationCardDataProps) => {
   const {t} = useTranslation('card');
   const {styles, theme} = useStyles(stylesheet);
-  const [value, setValue] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -19,7 +25,7 @@ const ControlVisualitationCardData = () => {
         </View>
         <Text>{t('cardData.title')}</Text>
       </View>
-      <Switch value={value} handleOnPress={v => setValue(v)} />
+      <Switch value={value} handlePress={handlePress} />
     </View>
   );
 };

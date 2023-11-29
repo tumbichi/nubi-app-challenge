@@ -20,6 +20,7 @@ import HomeStack from '@/Home/navigation/HomeStack';
 import ProfileStack from '@/Profile/navigation/ProfileStack';
 
 import {RootStackParamList} from './RootStack';
+import CardDataVisualizationProvider from '@/Card/context/CardDataVisualization/CardDataVisualizationProvider';
 
 export type NavbarTabParamList = {
   HomeStack: undefined;
@@ -80,16 +81,18 @@ const NavbarTab = ({}: NavbarTapProps) => {
   );
 
   return (
-    <Tab.Navigator screenOptions={{header: AppHeader}}>
-      {tabs.map(tab => (
-        <Tab.Screen
-          key={tab.name}
-          name={tab.name as keyof NavbarTabParamList}
-          component={tab.component}
-          options={tab.options}
-        />
-      ))}
-    </Tab.Navigator>
+    <CardDataVisualizationProvider>
+      <Tab.Navigator screenOptions={{header: AppHeader}}>
+        {tabs.map(tab => (
+          <Tab.Screen
+            key={tab.name}
+            name={tab.name as keyof NavbarTabParamList}
+            component={tab.component}
+            options={tab.options}
+          />
+        ))}
+      </Tab.Navigator>
+    </CardDataVisualizationProvider>
   );
 };
 

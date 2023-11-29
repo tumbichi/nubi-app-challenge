@@ -10,7 +10,7 @@ import Animated, {
 import {createStyleSheet, useStyles} from '@/Base/theme';
 
 interface SwitchProps {
-  handleOnPress: (value: boolean) => void;
+  handlePress: (value: boolean) => void;
   activeTrackColor?: string;
   inactiveTrackColor?: string;
   thumbColor?: string;
@@ -22,7 +22,7 @@ const Switch = ({
   inactiveTrackColor,
   thumbColor = '#FFF',
   value,
-  handleOnPress,
+  handlePress,
 }: SwitchProps) => {
   const {styles, theme} = useStyles(stylesheet);
 
@@ -66,8 +66,8 @@ const Switch = ({
   }, [value, switchTranslate]);
 
   const onPress = useCallback(() => {
-    handleOnPress(!value);
-  }, [handleOnPress, value]);
+    handlePress(!value);
+  }, [handlePress, value]);
 
   return (
     <Pressable style={{width: styles.containerStyle.width}} onPress={onPress}>

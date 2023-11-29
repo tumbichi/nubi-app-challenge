@@ -17,12 +17,16 @@ import CarouselDot from './CarouselDot';
 
 interface MyBankCardsCarouselProps {
   cards: CardData[];
+  showCardNumber?: boolean;
 }
 
 const {width} = Dimensions.get('window');
 const CARD_WIDTH = Math.round(width * 0.8);
 
-const BankCardsCarousel = ({cards}: MyBankCardsCarouselProps) => {
+const BankCardsCarousel = ({
+  cards,
+  showCardNumber,
+}: MyBankCardsCarouselProps) => {
   const {styles} = useStyles(stylesheet);
 
   const scrollXOffset = useSharedValue(0);
@@ -70,7 +74,7 @@ const BankCardsCarousel = ({cards}: MyBankCardsCarouselProps) => {
                 marginRight: index + 1 === cards.length ? 0 : 12,
               },
             ]}>
-            <BankCard card={card} />
+            <BankCard card={card} showCardNumber={showCardNumber} />
           </View>
         ))}
       </Animated.ScrollView>
