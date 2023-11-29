@@ -24,7 +24,7 @@ const CardScreen = () => {
         <Text>Todavia no tenes tu tarjeta</Text>
       )}
       <ControlVisualitationCardData />
-      <ExpenseSummary summary={[...details?.summary] ?? []} />
+      <ExpenseSummary summary={details?.summary ?? []} />
     </View>
   );
 };

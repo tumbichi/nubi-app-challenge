@@ -58,7 +58,8 @@ const BankCardsCarousel = ({cards}: MyBankCardsCarouselProps) => {
         snapToInterval={CARD_WIDTH}
         decelerationRate={0}
         scrollEventThrottle={16}
-        onScroll={scrollHandler}>
+        onScroll={scrollHandler}
+        onMomentumScrollEnd={() => {}}>
         {cards.map((card, index) => (
           <View
             key={card.all_digits}
