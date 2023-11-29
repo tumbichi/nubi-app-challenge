@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import {View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
@@ -11,6 +11,7 @@ import {CardData} from '@/Auth/data/AuthRepository';
 
 interface BankCardProps {
   card: CardData;
+  showCardNumber?: boolean;
 }
 
 const cardColors = {
@@ -26,10 +27,15 @@ const cardColors = {
   },
 };
 
-const BankCard = ({card}: BankCardProps) => {
+const BankCard = ({card, showCardNumber}: BankCardProps) => {
   const {t} = useTranslation('card');
   const [secureBalance, setSecureBalance] = useState(false);
   const {styles} = useStyles(stylesheet);
+
+  const cardDigitsAsArray = useMemo(
+    () => card.all_digits.split(' '),
+    [card.all_digits],
+  );
 
   const toogleSecureBalance = useCallback(() => {
     setSecureBalance(prev => !prev);
@@ -76,22 +82,40 @@ const BankCard = ({card}: BankCardProps) => {
         </Text>
         <View style={styles.cardNumberContainer}>
           <View style={styles.digitsContainer}>
-            <View style={styles.dot} />
-            <View style={styles.dot} />
-            <View style={styles.dot} />
-            <View style={styles.dot} />
+            {showCardNumber ? (
+              <Text style={styles.digits}>{cardDigitsAsArray[0]}</Text>
+            ) : (
+              <>
+                <View style={styles.dot} />
+                <View style={styles.dot} />
+                <View style={styles.dot} />
+                <View style={styles.dot} />
+              </>
+            )}
           </View>
           <View style={styles.digitsContainer}>
-            <View style={styles.dot} />
-            <View style={styles.dot} />
-            <View style={styles.dot} />
-            <View style={styles.dot} />
+            {showCardNumber ? (
+              <Text style={styles.digits}>{cardDigitsAsArray[1]}</Text>
+            ) : (
+              <>
+                <View style={styles.dot} />
+                <View style={styles.dot} />
+                <View style={styles.dot} />
+                <View style={styles.dot} />
+              </>
+            )}
           </View>
           <View style={styles.digitsContainer}>
-            <View style={styles.dot} />
-            <View style={styles.dot} />
-            <View style={styles.dot} />
-            <View style={styles.dot} />
+            {showCardNumber ? (
+              <Text style={styles.digits}>{cardDigitsAsArray[2]}</Text>
+            ) : (
+              <>
+                <View style={styles.dot} />
+                <View style={styles.dot} />
+                <View style={styles.dot} />
+                <View style={styles.dot} />
+              </>
+            )}
           </View>
           <Text style={styles.digits}>{card.last_four_digits}</Text>
         </View>

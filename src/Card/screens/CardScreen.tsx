@@ -9,11 +9,14 @@ import {Text} from '@/Base/components';
 import BankCard from '../components/BankCard';
 import ControlVisualitationCardData from '../components/ControlVisualitationCardData';
 import ExpenseSummary from '../components/ExpenseSummary';
+import useCardDataVisualizationContext from '../context/CardDataVisualization/useCardDataVisualizationContext';
 
 const CardScreen = () => {
   const {t} = useTranslation('card');
   const {details} = useSession();
   const {styles} = useStyles(stylesheet);
+
+  const {show, onChange} = useCardDataVisualizationContext();
 
   const myPhisicalCard = useMemo(
     () => details?.cardData.find(card => card.kind === 'PHYSICAL'),
@@ -24,8 +27,8 @@ const CardScreen = () => {
     <View style={styles.container}>
       {myPhisicalCard ? (
         <>
-          <BankCard card={myPhisicalCard} />
-          <ControlVisualitationCardData />
+          <BankCard card={myPhisicalCard} showCardNumber={show} />
+          <ControlVisualitationCardData value={show} handlePress={onChange} />
           <ExpenseSummary summary={details?.summary ?? []} />
         </>
       ) : (
