@@ -1,5 +1,6 @@
 import {Button, Text} from '@/Base/components';
 import {createStyleSheet, useStyles} from '@/Base/theme';
+import useColorModeValue from '@/Base/theme/hooks/useColorSchemeValue';
 import {View} from 'react-native';
 import {SvgProps} from 'react-native-svg';
 
@@ -11,11 +12,12 @@ interface ServiceItemProps {
 
 const ServiceItem = ({title, icon: Icon, onPress}: ServiceItemProps) => {
   const {styles, theme} = useStyles(stylesheet);
+  const iconColor = useColorModeValue(theme.colors.accent, theme.colors.gray);
 
   return (
     <Button variant="unstyled" style={styles.container} onPress={onPress}>
-      <View style={styles.iconContainer}>
-        <Icon color={theme.colors.accent} />
+      <View style={[styles.iconContainer, {borderColor: iconColor}]}>
+        <Icon color={iconColor} />
       </View>
       <Text style={styles.title}>{title}</Text>
     </Button>
@@ -31,7 +33,6 @@ const stylesheet = createStyleSheet(theme => ({
   },
   iconContainer: {
     borderWidth: 1,
-    borderColor: theme.colors.accent,
     borderRadius: 24,
     padding: theme.spacing.xs,
   },

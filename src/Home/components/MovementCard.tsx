@@ -6,6 +6,7 @@ import {Text} from '@/Base/components';
 import {Movement} from '@/Auth/data/AuthRepository';
 import MovementInitials from './MovementInitials';
 import checkIsAmountPositive from '../utils/helpers/checkIsAmountPositive';
+import formatPrice from '@/Base/utils/formatters/formatPrice';
 
 interface MovementCardProps {
   movement: Movement;
@@ -28,7 +29,13 @@ const MovementCard = ({movement}: MovementCardProps) => {
             ? styles.positive
             : styles.negative,
         ]}>
-        {movement['amount '].replace(' ', '')}
+        {formatPrice(
+          parseFloat(
+            (parseInt(movement['amount '].replace(' $', ''), 10) / 100).toFixed(
+              2,
+            ),
+          ),
+        )}
       </Text>
     </View>
   );

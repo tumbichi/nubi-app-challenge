@@ -11,8 +11,8 @@ import Animated, {
 import {createStyleSheet, useStyles} from '@/Base/theme';
 
 import {CardData} from '@/Auth/data/AuthRepository';
+import BankCard from '@/Card/components/BankCard';
 
-import BankCard from './BankCard';
 import CarouselDot from './CarouselDot';
 
 interface MyBankCardsCarouselProps {
@@ -58,7 +58,8 @@ const BankCardsCarousel = ({cards}: MyBankCardsCarouselProps) => {
         snapToInterval={CARD_WIDTH}
         decelerationRate={0}
         scrollEventThrottle={16}
-        onScroll={scrollHandler}>
+        onScroll={scrollHandler}
+        onMomentumScrollEnd={() => {}}>
         {cards.map((card, index) => (
           <View
             key={card.all_digits}

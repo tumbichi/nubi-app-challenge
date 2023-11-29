@@ -16,7 +16,10 @@ const HomeScreen = ({}: HomeScreenProps) => {
   const {details} = useSession();
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.scrollContentContainer}
+      showsVerticalScrollIndicator={false}>
       <BankCardsCarousel cards={details?.cardData ?? []} />
       <AvailableServicesCard availableServices={details?.services ?? []} />
       <Movements movements={details?.movements ?? []} />
@@ -30,6 +33,8 @@ const stylesheet = createStyleSheet(theme => ({
   container: {
     flex: 1,
     marginTop: theme.spacing.xl,
-    paddingTop: theme.spacing['2xl'],
+  },
+  scrollContentContainer: {
+    paddingVertical: theme.spacing['2xl'],
   },
 }));
