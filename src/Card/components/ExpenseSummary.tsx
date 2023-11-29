@@ -1,11 +1,14 @@
+import {useMemo} from 'react';
 import {Dimensions, View} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 import PieChart from 'react-native-pie-chart';
 
 import {Text} from '@/Base/components';
 import {createStyleSheet, useStyles} from '@/Base/theme';
+
 import {Summary} from '@/Auth/data/AuthRepository';
-import {useMemo} from 'react';
+
 import ExpenseItem from './ExpenseItem';
 
 interface ExpenseSummary {
@@ -15,6 +18,7 @@ interface ExpenseSummary {
 const CHART_WIDTH = Dimensions.get('window').width / 2 - 24;
 
 const ExpenseSummary = ({summary = []}: ExpenseSummary) => {
+  const {t} = useTranslation('card');
   const {styles} = useStyles(stylesheet);
 
   const series = useMemo(
@@ -29,7 +33,7 @@ const ExpenseSummary = ({summary = []}: ExpenseSummary) => {
 
   return summary.length > 0 ? (
     <View>
-      <Text style={styles.title}>Resumen de gastos</Text>
+      <Text style={styles.title}>{t('expenseSummary.title')}</Text>
       <View style={styles.card}>
         <PieChart
           coverRadius={0.6}

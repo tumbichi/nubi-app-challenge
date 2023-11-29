@@ -1,13 +1,4 @@
 {
-  "cards": {
-    "kind": {
-      "VIRTUAL": "VIRTUAL",
-      "PHYSICAL": "PHYSICAL"
-    },
-    "label": {
-      "balance": "Your balance"
-    }
-  },
   "movements": {
     "title": "Movements"
   },

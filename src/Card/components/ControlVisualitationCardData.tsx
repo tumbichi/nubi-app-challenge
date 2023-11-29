@@ -1,11 +1,13 @@
 import {useState} from 'react';
 import {View} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 import {createStyleSheet, useStyles} from '@/Base/theme';
 import {Switch, Text} from '@/Base/components';
 import {EyeIcon} from '@/Base/assets/icons';
 
 const ControlVisualitationCardData = () => {
+  const {t} = useTranslation('card');
   const {styles, theme} = useStyles(stylesheet);
   const [value, setValue] = useState(false);
 
@@ -15,7 +17,7 @@ const ControlVisualitationCardData = () => {
         <View style={styles.iconContainer}>
           <EyeIcon color={theme.colors.foreground} />
         </View>
-        <Text>Ver datos</Text>
+        <Text>{t('cardData.title')}</Text>
       </View>
       <Switch value={value} handleOnPress={v => setValue(v)} />
     </View>

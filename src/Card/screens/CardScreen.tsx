@@ -1,13 +1,17 @@
-import Text from '@/Base/components/Text';
-import {createStyleSheet, useStyles} from '@/Base/theme';
-import {View} from 'react-native';
-import BankCard from '../components/BankCard';
-import useSession from '@/Base/contexts/SessionContext/useSession';
 import {useMemo} from 'react';
+import {View} from 'react-native';
+import {useTranslation} from 'react-i18next';
+
+import {createStyleSheet, useStyles} from '@/Base/theme';
+import useSession from '@/Base/contexts/SessionContext/useSession';
+import {Text} from '@/Base/components';
+
+import BankCard from '../components/BankCard';
 import ControlVisualitationCardData from '../components/ControlVisualitationCardData';
 import ExpenseSummary from '../components/ExpenseSummary';
 
 const CardScreen = () => {
+  const {t} = useTranslation('card');
   const {details} = useSession();
   const {styles} = useStyles(stylesheet);
 
@@ -19,12 +23,14 @@ const CardScreen = () => {
   return (
     <View style={styles.container}>
       {myPhisicalCard ? (
-        <BankCard card={myPhisicalCard} />
+        <>
+          <BankCard card={myPhisicalCard} />
+          <ControlVisualitationCardData />
+          <ExpenseSummary summary={details?.summary ?? []} />
+        </>
       ) : (
-        <Text>Todavia no tenes tu tarjeta</Text>
+        <Text>{t('emptyMessage')}</Text>
       )}
-      <ControlVisualitationCardData />
-      <ExpenseSummary summary={details?.summary ?? []} />
     </View>
   );
 };

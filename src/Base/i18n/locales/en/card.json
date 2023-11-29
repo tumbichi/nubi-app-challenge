@@ -1,0 +1,18 @@
+{
+  "bankCard": {
+    "kind": {
+      "VIRTUAL": "VIRTUAL",
+      "PHYSICAL": "PHYSICAL"
+    },
+    "label": {
+      "balance": "Your balance"
+    }
+  },
+  "cardData": {
+    "title": "See data"
+  },
+  "expenseSummary": {
+    "title": "Expense summary"
+  },
+  "emptyMessage": "Your card is still on its way. In the meantime, enjoy our app"
+}

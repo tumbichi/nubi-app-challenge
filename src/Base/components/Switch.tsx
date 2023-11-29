@@ -1,24 +1,25 @@
 import {useCallback, useEffect} from 'react';
-import {ColorValue, Pressable} from 'react-native';
+import {Pressable} from 'react-native';
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import {createStyleSheet, useStyles} from '../theme';
+
+import {createStyleSheet, useStyles} from '@/Base/theme';
 
 interface SwitchProps {
   handleOnPress: (value: boolean) => void;
   activeTrackColor?: string;
-  inActiveTrackColor?: string;
+  inactiveTrackColor?: string;
   thumbColor?: string;
   value: boolean;
 }
 
 const Switch = ({
-  activeTrackColor = '#007AFF',
-  inActiveTrackColor = '#F2F5F7',
+  activeTrackColor,
+  inactiveTrackColor,
   thumbColor = '#FFF',
   value,
   handleOnPress,
@@ -31,7 +32,10 @@ const Switch = ({
     const backgroundColor = interpolateColor(
       switchTranslate.value,
       [0, 22],
-      [theme.colors.gray, theme.colors.accent],
+      [
+        inactiveTrackColor ?? theme.colors.gray,
+        activeTrackColor ?? theme.colors.accent,
+      ],
     );
 
     return {
