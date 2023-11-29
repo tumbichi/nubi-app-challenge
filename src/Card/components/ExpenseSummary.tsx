@@ -19,7 +19,7 @@ const CHART_WIDTH = Dimensions.get('window').width / 2 - 24;
 
 const ExpenseSummary = ({summary = []}: ExpenseSummary) => {
   const {t} = useTranslation('card');
-  const {styles} = useStyles(stylesheet);
+  const {styles, theme} = useStyles(stylesheet);
 
   const series = useMemo(
     () =>
@@ -29,7 +29,14 @@ const ExpenseSummary = ({summary = []}: ExpenseSummary) => {
     [summary],
   );
 
-  const colors = useMemo(() => ['#BC20DF', '#1AC996', '#AB91F7'], []);
+  const colors = useMemo(
+    () => [
+      theme.colors.lightPurple,
+      theme.colors.aquaLime,
+      theme.colors.lavander,
+    ],
+    [theme.colors.aquaLime, theme.colors.lavander, theme.colors.lightPurple],
+  );
 
   return summary.length > 0 ? (
     <View>
